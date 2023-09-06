@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Power Converter Tool</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        background-image: url(https://images.pexels.com/photos/4792509/pexels-photo-4792509.jpeg?auto=compress&cs=tinysrgb&w=600);
+
+}
+
+        .container {
+            width: 500px; /* Increased width here */
+            background-color: #fff;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border-radius: 8px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 10px;
+            font-weight: bold;
+            text-align: left;
+        }
+
+        input[type="number"] {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        select {
+            width: 100%;
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+
+        button {
+            background-color: #007bff;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        button:hover {
+            background-color: #0056b3;
+        }
+
+        p {
+            margin-top: 20px;
+            font-weight: bold;
+            font-size: 18px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Power Converter</h1>
+        <label for="power">Enter Power:</label>
+        <input type="number" id="power" placeholder="Enter power...">
+        <label for="fromUnit">From Unit:</label>
+        <select id="fromUnit">
+            <option value="watts">Watts</option>
+            <option value="kilowatts">Kilowatts</option>
+            <option value="horsepower">Horsepower</option>
+        </select>
+        <label for="toUnit">To Unit:</label>
+        <select id="toUnit">
+            <option value="watts">Watts</option>
+            <option value="kilowatts">Kilowatts</option>
+            <option value="horsepower">Horsepower</option>
+        </select>
+        <button onclick="convert()">Convert</button>
+        <p id="result"></p>
+    </div>
+
+    <script>
+        function convert() {
+            const power = parseFloat(document.getElementById('power').value);
+            const fromUnit = document.getElementById('fromUnit').value;
+            const toUnit = document.getElementById('toUnit').value;
+            let result = 0;
+
+            if (fromUnit === toUnit) {
+                result = power;
+            } else if (fromUnit === 'watts' && toUnit === 'kilowatts') {
+                result = power / 1000;
+            } else if (fromUnit === 'watts' && toUnit === 'horsepower') {
+                result = power / 745.7;
+            } else if (fromUnit === 'kilowatts' && toUnit === 'watts') {
+                result = power * 1000;
+            } else if (fromUnit === 'kilowatts' && toUnit === 'horsepower') {
+                result = power / 0.7457;
+            } else if (fromUnit === 'horsepower' && toUnit === 'watts') {
+                result = power * 745.7;
+            } else if (fromUnit === 'horsepower' && toUnit === 'kilowatts') {
+                result = power * 0.7457;
+            }
+
+            document.getElementById('result').textContent = `${power} ${fromUnit} is equal to ${result.toFixed(3)} ${toUnit}`;
+        }
+    </script>
+</body>
+</html>
